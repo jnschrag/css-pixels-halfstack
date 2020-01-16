@@ -1,4 +1,5 @@
 import React from "react";
+// import useGlobal from "../store";
 
 import "./styles.css";
 
