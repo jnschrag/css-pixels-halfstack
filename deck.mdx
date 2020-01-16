@@ -3,143 +3,409 @@ import {
   CodeSurferColumns,
   Step,
 } from "code-surfer";
-import { github, vsDark } from "@code-surfer/themes";
+import { nightOwl, vsDark, github, ultramin } from "@code-surfer/themes";
+import { Notes, Split, Image, Head, Invert } from 'mdx-deck'
 
-export const theme = vsDark;
+import { aspect } from 'mdx-deck/themes'
 
-# Hello 👋
+export const themes = [
+  nightOwl,
+  aspect,
+]
 
-You are using [MDX Deck](https://github.com/jxnblk/mdx-deck) and [Code Surfer](https://codesurfer.pomb.us)
+import PixelElement from './components/pixel-element'
+import Inputs from './components/inputs'
+
+import pusheen from './images/pusheen-pixel.png'
+import charmander from './images/charmander-sprite.png'
+import bracelets from './images/friendship-bracelets.jpg'
+import catGrid from './images/cat-grid.png'
+import BoxShadowFinal from './images/box-shadow-final.png'
+
+<Head>
+  <title>Getting SASSy with Pixel Art</title>
+  <link href='https://fonts.googleapis.com/css?family=VT323&display=swap' rel='stylesheet' />
+</Head>
+
+<Split>
+<h1 style="font-family: 'VT323', monospace;font-weight:normal;">Getting SASSy with Pixel Art</h1>
+
+<img src={pusheen} />
+</Split>
+
+Jacque Schrag, @jnschrag
+
+<Notes>
+- Excited to talk to you about one of my favorite kinds of art - pixel art
+</Notes>
+
+---
+
+<Split>
+<h1 style="font-family: 'VT323', monospace;font-weight:normal;">Getting SASSy with Pixel Art</h1>
+
+<img src={charmander} />
+</Split>
+
+Jacque Schrag, @jnschrag
+
+<Notes>
+  - Pixel art is nostalgic for me
+  - Video Games & Summer Camp
+</Notes>
+
+---
+
+<Split>
+<h1 style="font-family: 'VT323', monospace;font-weight:normal;">Getting SASSy with Pixel Art</h1>
+
+<img src={bracelets} style="max-width: 714px;" />
+</Split>
+
+Jacque Schrag, @jnschrag
+
+<Notes>
+- Favorite Codepens are people pushing CSS to its limits, including making pixel art
+- Talk will explain how you can use CSS to do this, leveraging Sass to streamline the process
+  - Since this is a JS conference, I’ll also show you how to use a smidge of JS to make easily editable pixels
+</Notes>
+
+---
+
+<Invert>
+<CodeSurferColumns themes={[nightOwl]}>
+
+<Step>
+
+```scss 7 title="All about the box-shadow"
+.pixel {
+  width: 200px;
+  height: 200px;
+  background: #fff;
+  margin: 1rem auto;
+  border: 1px solid #000;
+  box-shadow: 15px 5px 8px 2px #333;
+}
+```
+
+<PixelElement classes="pixel1" />
+
+</Step>
+
+<Step>
+
+```scss 7 title="All about the box-shadow" subtitle="Remove radius & blur"
+.pixel {
+  width: 200px;
+  height: 200px;
+  background: #fff;
+  margin: 1rem auto;
+  border: 1px solid #000;
+  box-shadow: 15px 5px #333;
+}
+```
+
+<PixelElement classes="pixel1 pixel1--no-blur" />
+
+</Step>
+
+<Step>
+
+```scss 2[10:15],7 title="All about the box-shadow" subtitle="Adjust X & Y offsets to position"
+.pixel {
+  width: 200px;
+  height: 200px;
+  background: #fff;
+  margin: 1rem auto;
+  border: 1px solid #000;
+  box-shadow: 200px 0 #333;
+}
+```
+
+<PixelElement classes="pixel1 pixel1--x" />
+
+</Step>
+
+<Step>
+
+```scss 2[10:14],3[11:15],7 title="All about the box-shadow" subtitle="Add multiples with a comma"
+.pixel {
+  width: 200px;
+  height: 200px;
+  background: #fff;
+  margin: 1rem auto;
+  border: 1px solid #000;
+  box-shadow: 200px 0 #333, 200px 200px #aaa;
+}
+```
+
+<PixelElement classes="pixel1 pixel1--xy" />
+
+</Step>
+
+</CodeSurferColumns>
+</Invert>
+
+<Notes>
+  <ol>
+  <li>box-shadow property is versatile</li>
+  <li>Focus on the X/Y offset & color parameters</li>
+  <li>Shadows are the same size as element<ul><li>X offset = width</li></ul></li>
+  <li>Multiple shadows</li>
+  </ol>
+</Notes>
+
+---
+
+# Let Sass do the heavy lifting
+
+<Notes>
+  Writing box-shadows by head is tedious & unnecessary
+</Notes>
 
 ---
 
 <CodeSurfer>
 
-```js title="This is a title" subtitle="and this a subtitle"
-function lorem(ipsum, dolor = 1) {
-  const sit = ipsum == null ? 0 : ipsum.sit;
-  dolor = sit - amet(dolor);
-  return sit
-    ? consectetur(ipsum, 0, dolor < 0 ? 0 : dolor)
-    : [];
-}
+```scss title="Color & Size Variables"
+  $size: 10px;
 
-function incididunt(ipsum, ut = 1) {
-  ut = labore.et(amet(ut), 0);
-  const sit = ipsum == null ? 0 : ipsum.sit;
+  $t: transparent;
+  $black: #000;
+  $gray: #cdc9cf;
+  $dkgray: #a09da1;
+  $pink: #ffa6ed;
+```
 
-  if (!sit || ut < 1) {
-    return [];
+```scss 9:18 subtitle="Assign to CSS Variables"
+  $size: 10px;
+
+  $t: transparent;
+  $black: #000;
+  $gray: #cdc9cf;
+  $dkgray: #a09da1;
+  $pink: #ffa6ed;
+
+  :root {
+    --size: #{$size};
+    --bg: #{$t};
+    --outline: #{$black};
+    --body: #{$gray};
+    --highlights: #{$dkgray};
+    --eyes: #{$black};
+    --nose: #{$black};
+    --cheeks: #{$pink};
   }
+```
 
-  let dolore = 0;
-  let magna = 0;
-  const aliqua = new eiusmod(labore.ut(sit / ut));
+</CodeSurfer>
 
-  while (dolore < sit) {
-    aliqua[magna++] = consectetur(
-      ipsum,
-      dolore,
-      (dolore += ut)
-    );
-  }
+<Notes>
+  <ol>
+    <li>Using both Sass & CSS variables</li>
+    <li>CSS variables can be modified by JS</li>
+  </ol>
+</Notes>
 
-  return aliqua;
+---
+
+<Invert>
+
+<CodeSurferColumns themes={[nightOwl]}>
+
+<Step>
+
+```scss 3:4 title="Use pseudo elements"
+.pixel {
+  position: relative;
+  width: calc(23 * var(--size));
+  height: calc(18 * var(--size));
+  margin: 1rem;
 }
 ```
 
-```js
-function lorem(ipsum, dolor = 1) {
-  const sit = ipsum == null ? 0 : ipsum.sit;
-  dolor = sit - amet(dolor);
-  return sit
-    ? consectetur(ipsum, 0, dolor < 0 ? 0 : dolor)
-    : [];
-}
+<PixelElement classes="pixel2" />
 
-function adipiscing(...elit) {
-  if (!elit.sit) {
-    return [];
+</Step>
+
+<Step>
+
+```scss 7:15 title="Use pseudo elements"
+.pixel {
+  position: relative;
+  width: calc(23 * var(--size));
+  height: calc(18 * var(--size));
+  margin: 1rem;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--size);
+    height: var(--size);
+    box-shadow: var(--size) 0 blue,
+    calc(var(--size) * 2) 0 red;
   }
-
-  const sed = elit[0];
-  return eiusmod.tempor(sed) ? sed : [sed];
-}
-
-function incididunt(ipsum, ut = 1) {
-  ut = labore.et(amet(ut), 0);
-  const sit = ipsum == null ? 0 : ipsum.sit;
-
-  if (!sit || ut < 1) {
-    return [];
-  }
-
-  let dolore = 0;
-  let magna = 0;
-  const aliqua = new eiusmod(labore.ut(sit / ut));
-
-  while (dolore < sit) {
-    aliqua[magna++] = consectetur(
-      ipsum,
-      dolore,
-      (dolore += ut)
-    );
-  }
-
-  return aliqua;
 }
 ```
 
-```diff 1[10:14],2[15:19],3[22:27],10:12
+<PixelElement classes="pixel2--pseudo" />
 
+</Step>
+
+</CodeSurferColumns>
+
+</Invert>
+
+<Notes>
+  <ol>
+    <li>Use pseudo elements to control size of the final pixel
+      <ul>
+        <li>Shadows size of the element they're applied to</li>
+        <li>Parent element size = final size of pixel</li>
+        <li>Position the shadows on top of the parent element</li>
+      </ul>
+    </li>
+  </ol>
+</Notes>
+
+---
+
+<CodeSurferColumns sizes={[2,1]}>
+
+<Step>
+
+```scss title="Create the matrix with a nested list"
+$cat: (
+  ('bg', 'bg', 'bg', 'outline', 'bg', 'bg', 'bg', 'bg', 'bg', 'bg', 'outline'),
+  ('bg', 'bg', 'outline', 'body', 'outline', 'bg', 'bg', 'bg', 'bg', 'outline', 'body', 'outline'),
+);
+```
+
+<img src={catGrid} />
+
+</Step>
+
+</CodeSurferColumns>
+
+<Notes>
+  Starting in the top left, each pixel is added to the list. Each row of pixels is listed separately.
+</Notes>
+
+---
+
+<CodeSurfer>
+
+```scss title="Draw the rest of the ~owl~ 🐈"
+$cat: (
+  ('bg', 'bg', 'bg', 'outline', 'bg', 'bg', 'bg', 'bg', 'bg', 'bg', 'outline'),
+  ('bg', 'bg', 'outline', 'body', 'outline', 'bg', 'bg', 'bg', 'bg', 'outline', 'body', 'outline'),
+  ('bg', 'bg', 'outline', 'body', 'highlights', 'outline', 'outline', 'outline', 'outline', 'highlights', 'body', 'outline', 'bg', 'bg', 'bg', 'bg', 'bg', 'bg', 'bg', 'bg', 'outline', 'outline'),
+  ('bg', 'outline', 'highlights', 'body', 'body', 'highlights', 'highlights', 'body', 'highlights', 'body', 'body', 'highlights', 'outline', 'bg', 'bg', 'bg', 'bg', 'bg', 'bg', 'outline', 'body', 'body', 'outline'),
+  ('bg', 'outline', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'outline', 'bg', 'bg', 'bg', 'bg', 'bg', 'bg', 'outline', 'body', 'body', 'outline'),
+  ('outline', 'highlights', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'highlights', 'outline', 'outline', 'outline', 'outline', 'bg', 'bg', 'bg', 'outline', 'highlights', 'outline'),
+  ('outline', 'body', 'body', 'eyes', 'body', 'body', 'nose', 'body', 'body', 'eyes', 'body', 'body', 'body', 'highlights', 'body', 'highlights', 'body', 'outline', 'bg', 'bg', 'outline', 'body', 'outline'),
+  ('outline', 'body', 'cheeks', 'body', 'body', 'nose', 'body', 'nose', 'body', 'body', 'cheeks', 'body', 'body', 'highlights', 'body', 'highlights', 'body', 'body', 'outline', 'outline', 'outline', 'highlights', 'outline'),
+  ('outline', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'outline', 'body', 'outline'),
+  ('outline', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'outline', 'body', 'outline'),
+  ('outline', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'outline'),
+  ('outline', 'highlights', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'outline'),
+  ('outline', 'highlights', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'outline'),
+  ('outline', 'highlights', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'highlights', 'outline'),
+  ('bg', 'outline', 'highlights', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'body', 'highlights', 'outline'),
+  ('bg', 'bg', 'outline', 'highlights', 'body', 'highlights', 'highlights', 'body', 'highlights', 'body', 'body', 'body', 'highlights', 'body', 'highlights', 'highlights', 'body', 'highlights', 'outline'),
+  ('bg', 'bg', 'bg', 'outline', 'body', 'outline', 'outline', 'body', 'outline', 'outline', 'outline', 'outline', 'outline', 'body', 'outline', 'outline', 'body', 'outline'),
+  ('bg', 'bg', 'bg', 'outline', 'outline', 'bg', 'bg', 'outline', 'outline', 'bg', 'bg', 'bg', 'outline', 'outline', 'bg', 'bg', 'outline', 'outline')
+);
 ```
 
 </CodeSurfer>
 
 ---
 
-<CodeSurferColumns themes={[vsDark, github]}>
+<CodeSurferColumns sizes={[1,1]}>
 
 <Step>
 
-```js
-const magna = aliqua => aliqua.ut((enim, ad) => enim, 0);
+```scss title="Convert \$cat matrix into box-shadow"
+.pixel::after {
+  box-shadow: pixelize($cat);
+}
+
+@function pixelize($matrix) {
+  $result: '';
+  $numRows: length($matrix);
+
+  @for $rowIndex from 1 through $numRows {
+    $y: ($rowIndex - 1);
+    $row: nth($matrix, $rowIndex);
+    $numCols: length($row);
+
+    @for $cellIndex from 1 through $numCols {
+      $x: ($cellIndex - 1);
+      $color: nth($row, $cellIndex);
+      
+      $sep: ',';
+      @if $x == 0 and $y == 0 {
+        $sep: '';
+      }
+      
+      $result: $result + '#{$sep}
+        calc(#{$x} * var(--size)) 
+        calc(#{$y} * var(--size)) 
+        var(--#{$color})
+      '
+    }
+  }
+  
+  $result: unquote($result);
+  @return $result;
+}
 ```
 
-```js
-const minim = (ad, enim) => dolore.magna(ad / enim);
+```scss
+calc(0 * var(--size)) calc(0 * var(--size)) var(--bg), 
+calc(1 * var(--size)) calc(0 * var(--size)) var(--bg), 
+calc(2 * var(--size)) calc(0 * var(--size)) var(--bg), 
+calc(3 * var(--size)) calc(0 * var(--size)) var(--outline), 
+calc(4 * var(--size)) calc(0 * var(--size)) var(--bg), 
+calc(5 * var(--size)) calc(0 * var(--size)) var(--bg), 
+calc(6 * var(--size)) calc(0 * var(--size)) var(--bg),
 ```
 
 </Step>
 
 <Step>
 
-```js
-const lorem = (ipsum, dolor, sit) => {
-  const amet = dolor - ipsum;
-  return consectetur.adipiscing(
-    {
-      elit: sed.eiusmod(sit - dolor) / amet + 2,
-    },
-    (tempor, incididunt) => ipsum + amet * incididunt
-  );
-};
-
-const magna = aliqua => aliqua.ut((enim, ad) => enim, 0);
+```diff 9 subtitle="Loop over every row in the matrix"
 ```
 
-```js
-const minim = (ad, enim) => dolore.magna(ad / enim);
+```scss 2 subtitle="Row index = y"
+$cat: (
+  ('bg', 'bg', 'bg', 'outline', 'bg', 'bg', 'bg', 'bg', 'bg', 'bg', 'outline')
+);
+```
 
-const sed = (eiusmod, tempor, incididunt) => {
-  const ut = tempor - eiusmod;
-  return labore.et(
-    {
-      amet: dolore.magna(incididunt - tempor) / ut + 2,
-    },
-    (aliqua, elit) => eiusmod + ut * elit
-  );
-};
+</Step>
+
+<Step>
+
+```diff 14 subtitle="Loop over every column in the row"
+```
+
+```diff 2[4:7] subtitle="Cell Index = x"
+```
+
+</Step>
+
+<Step>
+
+```diff 23:27 subtitle="x-offset = x * size; y-offset = y * size"
+```
+
+```scss subtitle="Result"
+calc(0 * var(--size)) calc(0 * var(--size)) var(--bg)
 ```
 
 </Step>
@@ -148,5 +414,13 @@ const sed = (eiusmod, tempor, incididunt) => {
 
 ---
 
-docs:  
-[codesurfer.pomb.us](https://codesurfer.pomb.us)
+# Final Result
+
+<PixelElement classes="cat" />
+
+---
+
+# Make it Editable
+
+<Inputs />
+<PixelElement classes="cat" />
