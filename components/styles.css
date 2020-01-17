@@ -53,6 +53,32 @@
     calc(var(--size) * 2) 0 red;
 }
 
+#inputs label {
+  font-size: 32px;
+  font-size: 2rem;
+}
+
+input {
+  margin-right: 2rem;
+  margin-left: 0.5rem;
+}
+
+input[type="color"] {
+  padding: 0;
+}
+
+input[type="number"] {
+  font-size: 28px;
+}
+
+#colors {
+  margin-bottom: 1rem;
+}
+
+#sizes {
+  margin-bottom: 2rem;
+}
+
 .cat {
   background: transparent;
   border: 0;

@@ -4,7 +4,7 @@ import {
   Step,
 } from "code-surfer";
 import { nightOwl, vsDark, github, ultramin } from "@code-surfer/themes";
-import { Notes, Split, Image, Head, Invert } from 'mdx-deck'
+import { Notes, Split, Image, Head, Invert, Appear } from 'mdx-deck'
 
 import { aspect } from 'mdx-deck/themes'
 
@@ -33,41 +33,36 @@ import BoxShadowFinal from './images/box-shadow-final.png'
 <img src={pusheen} />
 </Split>
 
-Jacque Schrag, @jnschrag
+<div style="font-family: 'VT323', monospace;font-weight:normal;">Jacque Schrag, @jnschrag</div>
 
 <Notes>
-- Excited to talk to you about one of my favorite kinds of art - pixel art
+- Excited to talk to you about one of my favorite kinds of art: pixel art
 </Notes>
 
 ---
 
 <Split>
-<h1 style="font-family: 'VT323', monospace;font-weight:normal;">Getting SASSy with Pixel Art</h1>
-
 <img src={charmander} />
+<img src={bracelets} />
 </Split>
 
-Jacque Schrag, @jnschrag
-
 <Notes>
-  - Pixel art is nostalgic for me
-  - Video Games & Summer Camp
+  <ul>
+  <li>Pixel art is nostalgic for me</li>
+  <li>Video Games & Summer Camp</li>
+  </ul>
 </Notes>
 
 ---
 
-<Split>
-<h1 style="font-family: 'VT323', monospace;font-weight:normal;">Getting SASSy with Pixel Art</h1>
-
-<img src={bracelets} style="max-width: 714px;" />
-</Split>
-
-Jacque Schrag, @jnschrag
+CodePen example here
 
 <Notes>
-- Favorite Codepens are people pushing CSS to its limits, including making pixel art
-- Talk will explain how you can use CSS to do this, leveraging Sass to streamline the process
-  - Since this is a JS conference, I’ll also show you how to use a smidge of JS to make easily editable pixels
+<ol>
+  <li>Favorite Codepens are people pushing CSS to its limits, including making pixel art</li>
+  <li>Talk will explain how you can use CSS to do this, leveraging Sass to streamline the process</li>
+  <li>Since this is a JS conference, I’ll also show you how to use a smidge of JS to make easily editable pixels</li>
+</ol>
 </Notes>
 
 ---
@@ -157,10 +152,22 @@ Jacque Schrag, @jnschrag
 
 ---
 
-# Let Sass do the heavy lifting
+# Let's Make a 🐈!
+
+<Appear>
+
+<img src={pusheen} />
+
+Sass to the rescue!
+
+</Appear>
 
 <Notes>
-  Writing box-shadows by head is tedious & unnecessary
+  <ol>
+    <li>Let's make a cat. Pusheen pixel from beginning.</li>
+    <li>Writing box-shadows by head is tedious & unnecessary</li>
+    <li>Sass variables, lists, and functions can help!</li>
+  </ol>
 </Notes>
 
 ---
@@ -221,6 +228,7 @@ Jacque Schrag, @jnschrag
   width: calc(23 * var(--size));
   height: calc(18 * var(--size));
   margin: 1rem;
+  background: var(--bg);
 }
 ```
 
@@ -290,7 +298,10 @@ $cat: (
 </CodeSurferColumns>
 
 <Notes>
-  Starting in the top left, each pixel is added to the list. Each row of pixels is listed separately.
+  <ol>
+    <li>Starting in the top left, each pixel is added to the list. Each row of pixels is listed separately.</li>
+    <li>Each value in the list corresponds to a CSS variable</li>
+  </ol>
 </Notes>
 
 ---
@@ -414,13 +425,10 @@ calc(0 * var(--size)) calc(0 * var(--size)) var(--bg)
 
 ---
 
-# Final Result
-
 <PixelElement classes="cat" />
 
 ---
 
-# Make it Editable
+<PixelElement classes="cat" />
 
 <Inputs />
-<PixelElement classes="cat" />
