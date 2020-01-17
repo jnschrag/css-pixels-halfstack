@@ -7,25 +7,73 @@ export default () => {
   return (
     <div id="inputs">
       <div id="colors">
-        <label for="outline">outline:</label>
-        <input type="color" id="outline" name="outline" onChange={globalActions.changeColor} value={globalState.colors.outline} />
-        
-        <label for="body">body:</label>
-        <input type="color" id="body" name="body" onChange={globalActions.changeColor} value={globalState.colors.body} />
-        
-        <label for="highlights">highlights:</label>
-        <input type="color" id="highlights" name="highlights" onChange={globalActions.changeColor} value={globalState.colors.highlights} />
-        
-        <label for="eyes">eyes:</label>
-        <input type="color" id="eyes" name="eyes" onChange={globalActions.changeColor} value={globalState.colors.eyes} />
-        
-        <label for="nose">nose:</label>
-        <input type="color" id="nose" name="nose" onChange={globalActions.changeColor} value={globalState.colors.nose} />
-        
-        <label for="cheeks">cheeks:</label>
-        <input type="color" id="cheeks" name="cheeks" onChange={globalActions.changeColor} value={globalState.colors.cheeks} />
+        <label for="bg">Background:</label>
+        <input
+          type="color"
+          id="bg"
+          name="bg"
+          onChange={globalActions.changeColor}
+          value={globalState.colors.bg}
+        />
+
+        <label for="outline">Outline:</label>
+        <input
+          type="color"
+          id="outline"
+          name="outline"
+          onChange={globalActions.changeColor}
+          value={globalState.colors.outline}
+        />
+
+        <br />
+
+        <label for="body">Body:</label>
+        <input
+          type="color"
+          id="body"
+          name="body"
+          onChange={globalActions.changeColor}
+          value={globalState.colors.body}
+        />
+
+        <label for="highlights">Highlights:</label>
+        <input
+          type="color"
+          id="highlights"
+          name="highlights"
+          onChange={globalActions.changeColor}
+          value={globalState.colors.highlights}
+        />
+        <br />
+
+        <label for="eyes">Eyes:</label>
+        <input
+          type="color"
+          id="eyes"
+          name="eyes"
+          onChange={globalActions.changeColor}
+          value={globalState.colors.eyes}
+        />
+
+        <label for="nose">Nose:</label>
+        <input
+          type="color"
+          id="nose"
+          name="nose"
+          onChange={globalActions.changeColor}
+          value={globalState.colors.nose}
+        />
+
+        <label for="cheeks">Cheeks:</label>
+        <input
+          type="color"
+          id="cheeks"
+          name="cheeks"
+          onChange={globalActions.changeColor}
+          value={globalState.colors.cheeks}
+        />
       </div>
-  
+
       <div id="sizes">
         <label for="size">Size (in pixels):</label>
         <input

@@ -36,7 +36,10 @@ import BoxShadowFinal from './images/box-shadow-final.png'
 <div style="font-family: 'VT323', monospace;font-weight:normal;">Jacque Schrag, @jnschrag</div>
 
 <Notes>
-- Excited to talk to you about one of my favorite kinds of art: pixel art
+  <ol>
+    <li>I'm Jacque Schrag, & I know this is a JS-focused conference, but my true coding love is CSS</li>
+    <li>Favorite Codepens are people pushing CSS to its limits, including making pixel art</li>
+</ol>
 </Notes>
 
 ---
@@ -48,21 +51,12 @@ import BoxShadowFinal from './images/box-shadow-final.png'
 
 <Notes>
   <ul>
+  <li>Wanted to learn how to make it</li>
   <li>Pixel art is nostalgic for me</li>
   <li>Video Games & Summer Camp</li>
+  <li>Talk will explain how you can use CSS to do this, leveraging Sass to streamline the process & a smidge of JS to make them editable</li>
+  <li>Link to code at end of the presentation</li>
   </ul>
-</Notes>
-
----
-
-CodePen example here
-
-<Notes>
-<ol>
-  <li>Favorite Codepens are people pushing CSS to its limits, including making pixel art</li>
-  <li>Talk will explain how you can use CSS to do this, leveraging Sass to streamline the process</li>
-  <li>Since this is a JS conference, I’ll also show you how to use a smidge of JS to make easily editable pixels</li>
-</ol>
 </Notes>
 
 ---
@@ -123,7 +117,7 @@ CodePen example here
 
 <Step>
 
-```scss 2[10:14],3[11:15],7 title="All about the box-shadow" subtitle="Add multiples with a comma"
+```scss 2[10:15],3[11:15],7 title="All about the box-shadow" subtitle="Add multiples with a comma"
 .pixel {
   width: 200px;
   height: 200px;
@@ -152,20 +146,12 @@ CodePen example here
 
 ---
 
-# Let's Make a 🐈!
-
-<Appear>
-
-<img src={pusheen} />
-
-Sass to the rescue!
-
-</Appear>
+<h1 style="display: flex;align-items: center;">Let's make a <PixelElement classes="cat cat--inline" />!</h1>
 
 <Notes>
   <ol>
-    <li>Let's make a cat. Pusheen pixel from beginning.</li>
-    <li>Writing box-shadows by head is tedious & unnecessary</li>
+    <li>We're going to be making this image of Pusheen.</li>
+    <li>Writing box-shadows by hand is tedious & unnecessary</li>
     <li>Sass variables, lists, and functions can help!</li>
   </ol>
 </Notes>
@@ -210,7 +196,8 @@ Sass to the rescue!
 <Notes>
   <ol>
     <li>Using both Sass & CSS variables</li>
-    <li>CSS variables can be modified by JS</li>
+    <li>Values of CSS variables can be modified & the browser repaints</li>
+    <li>Modified with JavaScript</li>
   </ol>
 </Notes>
 
@@ -275,6 +262,7 @@ Sass to the rescue!
         <li>Position the shadows on top of the parent element</li>
       </ul>
     </li>
+    <li>calc() function is a native CSS function. We're using that to do the math in the browser rather than when the SASS compiles</li>
   </ol>
 </Notes>
 
@@ -339,7 +327,7 @@ $cat: (
 
 <Step>
 
-```scss title="Convert \$cat matrix into box-shadow"
+```scss title="Convert \$cat matrix into..."
 .pixel::after {
   box-shadow: pixelize($cat);
 }
@@ -375,7 +363,7 @@ $cat: (
 }
 ```
 
-```scss
+```scss title="...box-shadow definitions."
 calc(0 * var(--size)) calc(0 * var(--size)) var(--bg), 
 calc(1 * var(--size)) calc(0 * var(--size)) var(--bg), 
 calc(2 * var(--size)) calc(0 * var(--size)) var(--bg), 
@@ -423,12 +411,85 @@ calc(0 * var(--size)) calc(0 * var(--size)) var(--bg)
 
 </CodeSurferColumns>
 
+<Notes>
+  <ol>
+    <li>Pixelize function returns box-shadow definitions</li>
+    <li>By looping over each row & each column in our matrix, we easily calculate our X & Y offsets & get the color</li>
+  </ol>
+</Notes>
+
 ---
 
 <PixelElement classes="cat" />
 
+<Notes>
+  Final product!
+</Notes>
+
 ---
 
-<PixelElement classes="cat" />
+<Invert>
 
-<Inputs />
+<CodeSurferColumns>
+
+<Step>
+
+```js subtitle="Update CSS variables with JS"
+  const initialSize = getComputedStyle(document.documentElement)
+    .getPropertyValue('--size').trim().slice(0, -2)
+
+  const sizeInput = document.getElementById('size')
+  sizeInput.value = initialSize
+
+  sizeInput.addEventListener('keyup', function() {
+    document.documentElement.style.setProperty("--size", this.value + 'px');
+  })
+```
+
+<div>
+  <PixelElement classes="cat cat--editable" />
+  <Inputs />
+</div>
+
+</Step>
+
+</CodeSurferColumns>
+
+</Invert>
+
+<Notes>
+  <ul>
+    <li>BC we used CSS variables, we can update our pixel using JS</li>
+    <li>JS watches for changes on the inputs & updates the CSS variable value accordingly</li>
+  </ul> 
+</Notes>
+
+---
+
+# Why should you do this?
+
+<ol style="list-style: none;">
+<Appear>
+  <li>😎 It's fun & looks cool!</li>
+  <li>🧰 Learn more about the tools you use everyday.</li>
+</Appear>
+</ol>
+
+<Notes>
+  <ol>
+    <li>What are the use cases for pixel art or code art in general?</li>
+    <li>Art for its own sake</li>
+    <li>Making art can push you to look at the tools you use everyday in a new way or learn how they can be manipulated in different ways.</li>
+  </ol>
+</Notes>
+
+---
+
+# Thank you!
+
+<div style="display: flex;">
+  <PixelElement classes="cat" />
+  <PixelElement classes="frog" />
+</div>
+
+For code & more details: [http://bit.ly/css-pixel-art](http://bit.ly/css-pixel-art)
